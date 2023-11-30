@@ -1,6 +1,6 @@
 package com.argprograma.tpf.DAO;
 
-import com.argprograma.tpf.modelo.Gato;
+import com.argprograma.tpf.entidades.Gato;
 import java.util.List;
 
 public interface GatoDAO {

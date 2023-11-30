@@ -1,6 +1,6 @@
 package com.argprograma.tpf.persistencia;
 
-import com.argprograma.tpf.modelo.TurnoMedico;
+import com.argprograma.tpf.entidades.TurnoMedico;
 import com.argprograma.tpf.persistencia.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +22,7 @@ public class TurnoMedicoJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
+
     public TurnoMedicoJpaController() {
         emf = Persistence.createEntityManagerFactory("TPF_SistemaVeterinaria_PU");
     }
@@ -46,7 +46,11 @@ public class TurnoMedicoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            turnoMedico = em.merge(turnoMedico);
+
+            if (!em.contains(turnoMedico)) {
+                turnoMedico = em.merge(turnoMedico);
+            }
+
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -130,5 +134,5 @@ public class TurnoMedicoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

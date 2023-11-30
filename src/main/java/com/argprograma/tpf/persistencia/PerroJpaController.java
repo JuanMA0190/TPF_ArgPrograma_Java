@@ -1,6 +1,6 @@
 package com.argprograma.tpf.persistencia;
 
-import com.argprograma.tpf.modelo.Perro;
+import com.argprograma.tpf.entidades.Perro;
 import com.argprograma.tpf.persistencia.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -46,7 +46,11 @@ public class PerroJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            perro = em.merge(perro);
+
+            if (!em.contains(perro)) {
+                perro = em.merge(perro);
+            }
+
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();

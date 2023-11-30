@@ -1,8 +1,10 @@
-package com.argprograma.tpf.modelo;
+package com.argprograma.tpf.entidades;
 
-import com.argprograma.tpf.modelo.estados.*;
+import com.argprograma.tpf.entidades.estados.TurnoPendiente;
+import com.argprograma.tpf.entidades.estados.Estado;
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,6 @@ public class TurnoMedico implements Serializable{
     
     @ManyToOne
     @JoinColumn(name="id_mascota")
-    @Column(name="id_mascota")
     private Mascota mascota;
     
     @Column(name="fecha")
@@ -32,13 +33,17 @@ public class TurnoMedico implements Serializable{
     private String motivo;
     
     @Column(name="estado")
-    private Estado estado;
+    private String estado;
+
+    public TurnoMedico() {
+    }
+         
     
     public TurnoMedico(Mascota mascota, LocalDate fecha, String motivo) {
         this.mascota = mascota;
         this.fecha = fecha;
         this.motivo = motivo;
-        this.estado = new TurnoPendiente();
+        this.estado = new TurnoPendiente().toString();
     }
     public long getId(){
         return id;
@@ -67,21 +72,13 @@ public class TurnoMedico implements Serializable{
         this.motivo = motivo;
     }
     
-    public void procesarTurno() {
-        estado.procesarTurno(this);
-    }
     
-    public Estado getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "La mascota "+this.mascota.getNombre()+" turno: "+this.getEstado().procesarTurno(this);
-    }
-     
 }

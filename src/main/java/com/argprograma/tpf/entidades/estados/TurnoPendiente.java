@@ -1,6 +1,6 @@
-package com.argprograma.tpf.modelo.estados;
+package com.argprograma.tpf.entidades.estados;
 
-import com.argprograma.tpf.modelo.TurnoMedico;
+import com.argprograma.tpf.entidades.TurnoMedico;
 
 public class TurnoPendiente implements Estado {
 

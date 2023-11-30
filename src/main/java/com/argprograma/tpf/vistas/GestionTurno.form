@@ -261,7 +261,7 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="tbMotivo" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="tbEstado" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="tbNombre" pref="127" max="32767" attributes="0"/>
@@ -297,7 +297,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tbMotivo" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="tbEstado" min="-2" pref="32" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -321,7 +321,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel3">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Motivo:"/>
+                        <Property name="text" type="java.lang.String" value="Estado"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="tbRaza">
@@ -331,7 +331,7 @@
                         <Property name="text" type="java.lang.String" value="Raza"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="tbMotivo">
+                    <Component class="javax.swing.JTextField" name="tbEstado">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel5">
                       <Properties>
@@ -490,7 +490,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tbMotivoG" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                                          <Component id="tbEstadoG" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
                                   </Group>
@@ -518,7 +518,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tbMotivoG" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="tbEstadoG" min="-2" pref="32" max="-2" attributes="0"/>
                               <EmptySpace pref="27" max="32767" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -549,10 +549,10 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel9">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Motivo:"/>
+                        <Property name="text" type="java.lang.String" value="Estado:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="tbMotivoG">
+                    <Component class="javax.swing.JTextField" name="tbEstadoG">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel10">
                       <Properties>

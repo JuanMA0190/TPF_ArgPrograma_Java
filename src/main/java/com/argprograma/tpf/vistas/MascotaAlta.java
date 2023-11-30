@@ -1,11 +1,33 @@
 package com.argprograma.tpf.vistas;
 
+import com.argprograma.tpf.entidades.Gato;
+import com.argprograma.tpf.entidades.Mascota;
+import com.argprograma.tpf.entidades.Perro;
+import com.argprograma.tpf.entidades.TurnoMedico;
+import com.argprograma.tpf.repositorios.GatoRepository;
+import com.argprograma.tpf.repositorios.MascotaRepository;
+import com.argprograma.tpf.repositorios.PerroRepository;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 public class MascotaAlta extends javax.swing.JFrame {
 
+    MascotaRepository maRepo = null;
+    PerroRepository peRepo = null;
+    GatoRepository gaRepo = null;
+    String[] titulos = {"Nombre", "Edad", "Raza", "Motivo", "Fecha_Turno"};
+
     public MascotaAlta() {
+        maRepo = new MascotaRepository();
+        peRepo = new PerroRepository();
+        gaRepo = new GatoRepository();
         initComponents();
         this.setResizable(false);
         this.setSize(810, 630);
+        cargarTabla(Perro.class, titulos, tblPerro);
     }
 
     @SuppressWarnings("unchecked")
@@ -426,21 +448,71 @@ public class MascotaAlta extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void cargarTabla(Class<? extends Mascota> claseMascota, String[] titulos, JTable tabla) {
+        DefaultTableModel modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        modeloTabla.setColumnIdentifiers(titulos);
+
+        List<Mascota> listaMascotas = maRepo.obtenerTodos();
+
+        if (listaMascotas != null) {
+            for (Mascota mascota : listaMascotas) {
+                if (claseMascota.isInstance(mascota)) {
+                    List<TurnoMedico> turnos = mascota.getTurnosMedicos();
+
+                    for (TurnoMedico turno : turnos) {
+                        Object[] objeto = null;
+                        if (mascota instanceof Perro) {
+                            Perro perro = (Perro) mascota;
+                            objeto = new Object[]{perro.getNombre(), perro.getEdad(), perro.getRaza(), turno.getMotivo(), turno.getFecha()};
+                        } else if (mascota instanceof Gato) {
+                            Gato gato = (Gato) mascota;
+                            objeto = new Object[]{gato.getNombre(), gato.getEdad(), gato.getColor(), turno.getMotivo(), turno.getFecha()};
+                        }
+                        modeloTabla.addRow(objeto);
+                    }
+                }
+            }
+        }
+
+        // Asumiendo que tienes una tabla que puede mostrar tanto perros como gatos
+        tabla.setModel(modeloTabla);
+    }
+
+    private void limpiar() {
+        LocalDate fechaActual = LocalDate.now();
+        Date fechaActualDate = java.sql.Date.valueOf(fechaActual);
+
+        tbNombre.setText("");
+        tbNombreG.setText("");
+        tbEdad.setText("");
+        tbEdadG.setText("");
+        tbRaza.setText("");
+        tbColor.setText("");
+        jCalendar1.setDate(fechaActualDate);
+    }
+
     private void jTPMascotaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTPMascotaStateChanged
         int selectedIndex = jTPMascota.getSelectedIndex();
 
-                    switch (selectedIndex) {
-                        case 0:
-                            System.out.println("Estás en la pestaña 1");
-                            
-                            break;
-                        case 1:
-                            System.out.println("Estás en la pestaña 2");
-                            // Realizar acciones para la pestaña 2
-                            break;
-                        default:
-                            break;
-                    }
+        switch (selectedIndex) {
+            case 0:
+                titulos[2] = "Raza";
+                cargarTabla(Perro.class,titulos,tblPerro);
+
+                break;
+            case 1:
+                titulos[2] = "Color";
+                cargarTabla(Gato.class,titulos,tblGato);
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_jTPMascotaStateChanged
 
 

@@ -1,4 +1,4 @@
-package com.argprograma.tpf.modelo;
+package com.argprograma.tpf.entidades;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -10,6 +10,9 @@ import javax.persistence.Table;
 public class Perro extends Mascota implements Serializable {
     @Column(name="raza")
     private String raza;
+    
+    public Perro(){
+    }
 
     public Perro(String nombre, int edad, String raza) {
         super(nombre, edad);
@@ -23,10 +26,6 @@ public class Perro extends Mascota implements Serializable {
     public void setRaza(String raza) {
         this.raza = raza;
     }
-
-    @Override
-    public String toString() {
-        return "Mi nombre es: "+this.getNombre()+" y mi raza es: "+this.getRaza();
-    }
   
+    
 }

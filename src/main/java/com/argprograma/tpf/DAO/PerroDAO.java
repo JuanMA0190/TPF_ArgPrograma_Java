@@ -1,6 +1,6 @@
 package com.argprograma.tpf.DAO;
 
-import com.argprograma.tpf.modelo.Perro;
+import com.argprograma.tpf.entidades.Perro;
 import java.util.List;
 
 public interface PerroDAO {

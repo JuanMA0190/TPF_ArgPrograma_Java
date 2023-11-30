@@ -33,7 +33,7 @@ public class GestionTurno extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         tbRaza = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tbMotivo = new javax.swing.JTextField();
+        tbEstado = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         PanelGato = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -47,7 +47,7 @@ public class GestionTurno extends javax.swing.JFrame {
         tbColor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        tbMotivoG = new javax.swing.JTextField();
+        tbEstadoG = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jCalendar2 = new com.toedter.calendar.JCalendar();
@@ -138,7 +138,7 @@ public class GestionTurno extends javax.swing.JFrame {
 
         jLabel2.setText("Edad");
 
-        jLabel3.setText("Motivo:");
+        jLabel3.setText("Estado");
 
         jLabel4.setText("Raza");
 
@@ -166,7 +166,7 @@ public class GestionTurno extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tbMotivo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tbEstado, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tbNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
@@ -193,7 +193,7 @@ public class GestionTurno extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5))
         );
@@ -278,7 +278,7 @@ public class GestionTurno extends javax.swing.JFrame {
 
         jLabel8.setText("Color");
 
-        jLabel9.setText("Motivo:");
+        jLabel9.setText("Estado:");
 
         jLabel10.setText("Fecha:");
 
@@ -308,7 +308,7 @@ public class GestionTurno extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel10)
-                            .addComponent(tbMotivoG, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tbEstadoG, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 28, Short.MAX_VALUE))))
         );
         jPanel6Layout.setVerticalGroup(
@@ -329,7 +329,7 @@ public class GestionTurno extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbMotivoG, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbEstadoG, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabel10))
         );
@@ -481,8 +481,8 @@ public class GestionTurno extends javax.swing.JFrame {
     private javax.swing.JTextField tbColor;
     private javax.swing.JTextField tbEdad;
     private javax.swing.JTextField tbEdadG;
-    private javax.swing.JTextField tbMotivo;
-    private javax.swing.JTextField tbMotivoG;
+    private javax.swing.JTextField tbEstado;
+    private javax.swing.JTextField tbEstadoG;
     private javax.swing.JTextField tbNombre;
     private javax.swing.JTextField tbNombreG;
     private javax.swing.JTextField tbRaza;

@@ -1,6 +1,6 @@
 package com.argprograma.tpf.DAO;
 
-import com.argprograma.tpf.modelo.TurnoMedico;
+import com.argprograma.tpf.entidades.TurnoMedico;
 import java.util.List;
 
 public interface TurnoMedicoDAO {

@@ -1,6 +1,6 @@
 package com.argprograma.tpf.persistencia;
 
-import com.argprograma.tpf.modelo.Mascota;
+import com.argprograma.tpf.entidades.Mascota;
 import com.argprograma.tpf.persistencia.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -46,14 +46,18 @@ public class MascotaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            mascota = em.merge(mascota);
+
+            if (!em.contains(mascota)) {
+                mascota = em.merge(mascota);
+            }
+
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 long id = mascota.getId();
                 if (findMascota(id) == null) {
-                    throw new NonexistentEntityException("The mascota with id " + id + " no longer exists.");
+                    throw new NonexistentEntityException("The Mascota with id " + id + " no longer exists.");
                 }
             }
             throw ex;

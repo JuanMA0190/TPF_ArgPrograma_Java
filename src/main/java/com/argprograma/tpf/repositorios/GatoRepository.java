@@ -1,7 +1,7 @@
 package com.argprograma.tpf.repositorios;
 
 import com.argprograma.tpf.DAO.GatoDAO;
-import com.argprograma.tpf.modelo.Gato;
+import com.argprograma.tpf.entidades.Gato;
 import com.argprograma.tpf.persistencia.GatoJpaController;
 import com.argprograma.tpf.persistencia.exceptions.NonexistentEntityException;
 import java.util.List;

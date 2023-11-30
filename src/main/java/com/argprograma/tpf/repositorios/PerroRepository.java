@@ -1,7 +1,7 @@
 package com.argprograma.tpf.repositorios;
 
 import com.argprograma.tpf.DAO.PerroDAO;
-import com.argprograma.tpf.modelo.Perro;
+import com.argprograma.tpf.entidades.Perro;
 import com.argprograma.tpf.persistencia.PerroJpaController;
 import com.argprograma.tpf.persistencia.exceptions.NonexistentEntityException;
 import java.util.List;

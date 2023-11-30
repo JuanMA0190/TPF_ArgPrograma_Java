@@ -1,4 +1,4 @@
-package com.argprograma.tpf.modelo;
+package com.argprograma.tpf.entidades;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -7,9 +7,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Gato")
-public class Gato extends Mascota implements Serializable{
-    @Column(name="color")
+public class Gato extends Mascota implements Serializable {
+
+    @Column(name = "color")
     private String color;
+    
+    public Gato(){
+    }
 
     public Gato(String nombre, int edad, String color) {
         super(nombre, edad);
@@ -22,11 +26,6 @@ public class Gato extends Mascota implements Serializable{
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    @Override
-    public String toString() {
-        return "Mi nombre es: "+this.getNombre()+" y mi color es: "+this.getColor();
     }
 
 }

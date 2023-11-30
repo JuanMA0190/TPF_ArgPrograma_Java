@@ -1,6 +1,6 @@
 package com.argprograma.tpf.DAO;
 
-import com.argprograma.tpf.modelo.Mascota;
+import com.argprograma.tpf.entidades.Mascota;
 import java.util.List;
 
 public interface MascotaDAO {

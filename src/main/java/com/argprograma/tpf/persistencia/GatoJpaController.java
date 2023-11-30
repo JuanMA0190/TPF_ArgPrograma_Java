@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.argprograma.tpf.persistencia;
 
-import com.argprograma.tpf.modelo.Gato;
+import com.argprograma.tpf.entidades.Gato;
 import com.argprograma.tpf.persistencia.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -50,14 +46,18 @@ public class GatoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            gato = em.merge(gato);
+
+            if (!em.contains(gato)) {
+                gato = em.merge(gato);
+            }
+
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 long id = gato.getId();
                 if (findGato(id) == null) {
-                    throw new NonexistentEntityException("The gato with id " + id + " no longer exists.");
+                    throw new NonexistentEntityException("The Gato with id " + id + " no longer exists.");
                 }
             }
             throw ex;

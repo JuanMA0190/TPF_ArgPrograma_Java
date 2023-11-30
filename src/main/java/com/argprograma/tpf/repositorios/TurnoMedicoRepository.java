@@ -1,7 +1,7 @@
 package com.argprograma.tpf.repositorios;
 
 import com.argprograma.tpf.DAO.TurnoMedicoDAO;
-import com.argprograma.tpf.modelo.TurnoMedico;
+import com.argprograma.tpf.entidades.TurnoMedico;
 import com.argprograma.tpf.persistencia.TurnoMedicoJpaController;
 import com.argprograma.tpf.persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
