@@ -1,16 +1,6 @@
 package com.argprograma.tpf.main;
 
-import com.argprograma.tpf.entidades.Gato;
-import com.argprograma.tpf.entidades.Mascota;
-import com.argprograma.tpf.entidades.Perro;
-import com.argprograma.tpf.entidades.TurnoMedico;
-import com.argprograma.tpf.persistencia.*;
-import com.argprograma.tpf.repositorios.*;
 import com.argprograma.tpf.vistas.Principal;
-import java.time.LocalDate;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class Main {
 

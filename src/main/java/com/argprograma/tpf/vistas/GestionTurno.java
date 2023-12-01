@@ -19,15 +19,19 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class MascotaAlta extends javax.swing.JFrame {
+public class GestionTurno extends javax.swing.JFrame {
 
     MascotaRepository maRepo = null;
     TurnoMedicoRepository tMRepo = null;
-    String[] titulos = {"Nombre", "Edad", "Raza", "Motivo", "Fecha_Turno"};
+    GatoRepository gRepo = null;
+    PerroRepository pRepo = null;
+    String[] titulos = {"ID", "Nombre", "Edad", "Raza", "Motivo", "Fecha_Turno"};
 
-    public MascotaAlta() {
+    public GestionTurno() {
         maRepo = new MascotaRepository();
         tMRepo = new TurnoMedicoRepository();
+        gRepo = new GatoRepository();
+        pRepo = new PerroRepository();
         initComponents();
         this.setResizable(false);
         this.setSize(810, 630);
@@ -159,11 +163,21 @@ public class MascotaAlta extends javax.swing.JFrame {
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
         btnActualizar.setEnabled(false);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(51, 51, 51));
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setBackground(new java.awt.Color(51, 51, 51));
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -202,6 +216,11 @@ public class MascotaAlta extends javax.swing.JFrame {
         jLabel2.setText("Edad");
 
         tbEdad.setForeground(new java.awt.Color(0, 0, 0));
+        tbEdad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbEdadKeyReleased(evt);
+            }
+        });
 
         tbNombre.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -367,6 +386,11 @@ public class MascotaAlta extends javax.swing.JFrame {
         jLabel7.setText("Edad");
 
         tbEdadG.setForeground(new java.awt.Color(0, 0, 0));
+        tbEdadG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbEdadGKeyReleased(evt);
+            }
+        });
 
         tbColor.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -465,11 +489,21 @@ public class MascotaAlta extends javax.swing.JFrame {
         btnActualizar1.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar1.setText("Actualizar");
         btnActualizar1.setEnabled(false);
+        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizar1ActionPerformed(evt);
+            }
+        });
 
         btnEliminar1.setBackground(new java.awt.Color(51, 51, 51));
         btnEliminar1.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar1.setText("Eliminar");
         btnEliminar1.setEnabled(false);
+        btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminar1ActionPerformed(evt);
+            }
+        });
 
         btnCancelar1.setBackground(new java.awt.Color(51, 51, 51));
         btnCancelar1.setForeground(new java.awt.Color(255, 255, 255));
@@ -569,10 +603,10 @@ public class MascotaAlta extends javax.swing.JFrame {
                         Object[] objeto = null;
                         if (mascota instanceof Perro) {
                             Perro perro = (Perro) mascota;
-                            objeto = new Object[]{perro.getNombre(), perro.getEdad(), perro.getRaza(), turno.getMotivo(), turno.getFecha()};
+                            objeto = new Object[]{mascota.getId(), perro.getNombre(), perro.getEdad(), perro.getRaza(), turno.getMotivo(), turno.getFecha()};
                         } else if (mascota instanceof Gato) {
                             Gato gato = (Gato) mascota;
-                            objeto = new Object[]{gato.getNombre(), gato.getEdad(), gato.getColor(), turno.getMotivo(), turno.getFecha()};
+                            objeto = new Object[]{mascota.getId(), gato.getNombre(), gato.getEdad(), gato.getColor(), turno.getMotivo(), turno.getFecha()};
                         }
                         modeloTabla.addRow(objeto);
                     });
@@ -582,11 +616,16 @@ public class MascotaAlta extends javax.swing.JFrame {
 
         tabla.setModel(modeloTabla);
 
+        // Configura la columna ID para que no sea visible
+        tabla.getColumnModel().getColumn(0).setMinWidth(0);
+        tabla.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabla.getColumnModel().getColumn(0).setWidth(0);
+        //-----------------------------------------------------------------
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloTabla);
         tabla.setRowSorter(sorter);
 
         Comparator<Object> dateComparator = (date1, date2) -> ((LocalDate) date1).compareTo((LocalDate) date2);
-        sorter.setComparator(tabla.getColumnCount() - 1, dateComparator);
+        sorter.setComparator(titulos.length - 1, dateComparator);
 
     }
 
@@ -610,12 +649,12 @@ public class MascotaAlta extends javax.swing.JFrame {
 
         switch (selectedIndex) {
             case 0:
-                titulos[2] = "Raza";
+                titulos[3] = "Raza";
                 cargarTabla(Perro.class, titulos, tblPerro);
 
                 break;
             case 1:
-                titulos[2] = "Color";
+                titulos[3] = "Color";
                 cargarTabla(Gato.class, titulos, tblGato);
                 break;
             default:
@@ -627,13 +666,12 @@ public class MascotaAlta extends javax.swing.JFrame {
         int filaSeleccionada = tblPerro.getSelectedRow();
 
         if (filaSeleccionada >= 0) {
-            String nombre = tblPerro.getValueAt(filaSeleccionada, 0).toString();
-            String edad = tblPerro.getValueAt(filaSeleccionada, 1).toString();
-            String raza = tblPerro.getValueAt(filaSeleccionada, 2).toString();
-            String motivo = tblPerro.getValueAt(filaSeleccionada, 3).toString();
+            String nombre = tblPerro.getValueAt(filaSeleccionada, 1).toString();
+            String edad = tblPerro.getValueAt(filaSeleccionada, 2).toString();
+            String raza = tblPerro.getValueAt(filaSeleccionada, 3).toString();
+            String motivo = tblPerro.getValueAt(filaSeleccionada, 4).toString();
 
-            // Supongamos que la columna 4 contiene la fecha como LocalDate
-            LocalDate localDate = (LocalDate) tblPerro.getValueAt(filaSeleccionada, 4);
+            LocalDate localDate = (LocalDate) tblPerro.getValueAt(filaSeleccionada, 5);
 
             Date fecha = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
@@ -642,7 +680,7 @@ public class MascotaAlta extends javax.swing.JFrame {
             tbRaza.setText(raza);
             tbMotivo.setText(motivo);
             jCalendar1.setDate(fecha);
-            
+
             btnGuardar.setEnabled(false);
             btnActualizar.setEnabled(true);
             btnEliminar.setEnabled(true);
@@ -653,13 +691,12 @@ public class MascotaAlta extends javax.swing.JFrame {
         int filaSeleccionada = tblGato.getSelectedRow();
 
         if (filaSeleccionada >= 0) {
-            String nombre = tblGato.getValueAt(filaSeleccionada, 0).toString();
-            String edad = tblGato.getValueAt(filaSeleccionada, 1).toString();
-            String color = tblGato.getValueAt(filaSeleccionada, 2).toString();
-            String motivo = tblGato.getValueAt(filaSeleccionada, 3).toString();
+            String nombre = tblGato.getValueAt(filaSeleccionada, 1).toString();
+            String edad = tblGato.getValueAt(filaSeleccionada, 2).toString();
+            String color = tblGato.getValueAt(filaSeleccionada, 3).toString();
+            String motivo = tblGato.getValueAt(filaSeleccionada, 4).toString();
 
-            // Supongamos que la columna 4 contiene la fecha como LocalDate
-            LocalDate localDate = (LocalDate) tblGato.getValueAt(filaSeleccionada, 4);
+            LocalDate localDate = (LocalDate) tblGato.getValueAt(filaSeleccionada, 5);
 
             Date fecha = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
@@ -668,7 +705,7 @@ public class MascotaAlta extends javax.swing.JFrame {
             tbColor.setText(color);
             tbMotivoG.setText(motivo);
             jCalendar2.setDate(fecha);
-            
+
             btnGuardar1.setEnabled(false);
             btnActualizar1.setEnabled(true);
             btnEliminar1.setEnabled(true);
@@ -676,18 +713,11 @@ public class MascotaAlta extends javax.swing.JFrame {
     }//GEN-LAST:event_tblGatoMouseClicked
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
-        limpiar();
+        bloquearModificaciones();
     }//GEN-LAST:event_btnCancelar1ActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpiar();
-        btnGuardar.setEnabled(true);
-        btnEliminar.setEnabled(false);
-        btnActualizar.setEnabled(false);
-        
-        btnGuardar1.setEnabled(true);
-        btnEliminar1.setEnabled(false);
-        btnActualizar1.setEnabled(false);
+        bloquearModificaciones();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -707,14 +737,14 @@ public class MascotaAlta extends javax.swing.JFrame {
 
             cargarTabla(Perro.class, titulos, tblPerro);
             limpiar();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-         if (!tbNombreG.getText().equals("") && !tbEdadG.getText().equals("") && !tbColor.getText().equals("") && !tbMotivoG.getText().equals("")) {
+        if (!tbNombreG.getText().equals("") && !tbEdadG.getText().equals("") && !tbColor.getText().equals("") && !tbMotivoG.getText().equals("")) {
             Mascota gato = new Gato(tbNombreG.getText(), Integer.parseInt(tbEdadG.getText()), tbColor.getText());
             maRepo.guardar(gato);
 
@@ -730,11 +760,144 @@ public class MascotaAlta extends javax.swing.JFrame {
 
             cargarTabla(Gato.class, titulos, tblGato);
             limpiar();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int filaSeleccionada = tblPerro.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            long id = (long) tblPerro.getValueAt(filaSeleccionada, 0);
+
+            Mascota mEliminar = maRepo.obtenerPorId(id);
+
+            maRepo.eliminar(mEliminar.getId());
+
+            cargarTabla(Perro.class, titulos, tblPerro);
+            bloquearModificaciones();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una mascota", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
+        int filaSeleccionada = tblGato.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            long id = (long) tblGato.getValueAt(filaSeleccionada, 0);
+
+            Mascota mEliminar = maRepo.obtenerPorId(id);
+
+            maRepo.eliminar(mEliminar.getId());
+
+            cargarTabla(Gato.class, titulos, tblGato);
+            bloquearModificaciones();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una mascota", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminar1ActionPerformed
+
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+        int filaSeleccionada = tblGato.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            if (!tbNombreG.getText().equals("") && !tbEdadG.getText().equals("") && !tbColor.getText().equals("") && !tbMotivoG.getText().equals("")) {
+                long id = (long) tblGato.getValueAt(filaSeleccionada, 0);
+
+                Gato gEditar = gRepo.obtenerPorId(id);
+                TurnoMedico tEditar = tMRepo.obtenerPorId(id);
+
+                gEditar.setNombre(tbNombreG.getText());
+                gEditar.setEdad(Integer.parseInt(tbEdadG.getText()));
+                gEditar.setColor(tbColor.getText());
+
+                gRepo.actualizar(gEditar);
+
+                //Solo se deja editar el motivo, ya que la fecha se confirma o no
+                tEditar.setMotivo(tbMotivoG.getText());
+                tMRepo.actualizar(tEditar);
+
+                cargarTabla(Gato.class, titulos, tblGato);
+                bloquearModificaciones();
+            } else {
+                JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una mascota", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnActualizar1ActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        int filaSeleccionada = tblPerro.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            if (!tbNombre.getText().equals("") && !tbEdad.getText().equals("") && !tbRaza.getText().equals("") && !tbMotivo.getText().equals("")) {
+                long id = (long) tblPerro.getValueAt(filaSeleccionada, 0);
+
+                Perro pEditar = pRepo.obtenerPorId(id);
+                TurnoMedico tEditar = tMRepo.obtenerPorId(id);
+
+                pEditar.setNombre(tbNombre.getText());
+                pEditar.setEdad(Integer.parseInt(tbEdad.getText()));
+                pEditar.setRaza(tbRaza.getText());
+
+                pRepo.actualizar(pEditar);
+
+                //Solo se deja editar el motivo, ya que la fecha se confirma o no
+                tEditar.setMotivo(tbMotivo.getText());
+                tMRepo.actualizar(tEditar);
+
+                cargarTabla(Perro.class, titulos, tblPerro);
+                bloquearModificaciones();
+            } else {
+                JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una mascota", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void tbEdadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbEdadKeyReleased
+        boolean ban;
+        if (Character.isDigit(evt.getKeyChar())) {
+            ban = false;
+        } else if (Character.isISOControl(evt.getKeyChar())) {
+            ban = false;
+        } else if (Character.isSpaceChar(evt.getKeyChar())) {
+            ban = false;
+        } else {
+            ban = true;
+            JOptionPane.showMessageDialog(null, "Campo solo numerico", "Error", JOptionPane.ERROR_MESSAGE);
+            tbEdad.setText("");
+        }
+    }//GEN-LAST:event_tbEdadKeyReleased
+
+    private void tbEdadGKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbEdadGKeyReleased
+        boolean ban;
+        if (Character.isDigit(evt.getKeyChar())) {
+            ban = false;
+        } else if (Character.isISOControl(evt.getKeyChar())) {
+            ban = false;
+        } else if (Character.isSpaceChar(evt.getKeyChar())) {
+            ban = false;
+        } else {
+            ban = true;
+            JOptionPane.showMessageDialog(null, "Campo solo numerico", "Error", JOptionPane.ERROR_MESSAGE);
+            tbEdadG.setText("");
+        }
+    }//GEN-LAST:event_tbEdadGKeyReleased
+
+    private void bloquearModificaciones() {
+        limpiar();
+        btnGuardar.setEnabled(true);
+        btnEliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+
+        btnGuardar1.setEnabled(true);
+        btnEliminar1.setEnabled(false);
+        btnActualizar1.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelGato;

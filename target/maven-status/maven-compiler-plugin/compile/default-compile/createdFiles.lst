@@ -1,5 +1,6 @@
 com\argprograma\tpf\entidades\estados\TurnoAceptado.class
 com\argprograma\tpf\persistencia\exceptions\NonexistentEntityException.class
+com\argprograma\tpf\vistas\MascotaAlta$15.class
 com\argprograma\tpf\vistas\MascotaAlta$9.class
 com\argprograma\tpf\vistas\GestionTurno$1.class
 com\argprograma\tpf\entidades\estados\Estado.class
@@ -14,10 +15,12 @@ com\argprograma\tpf\persistencia\MascotaJpaController.class
 com\argprograma\tpf\entidades\Mascota.class
 com\argprograma\tpf\vistas\MascotaAlta$6.class
 com\argprograma\tpf\DAO\MascotaDAO.class
+com\argprograma\tpf\vistas\MascotaAlta$11.class
 com\argprograma\tpf\entidades\estados\TurnoPendiente.class
 com\argprograma\tpf\persistencia\exceptions\IllegalOrphanException.class
 com\argprograma\tpf\entidades\TurnoMedico.class
 com\argprograma\tpf\vistas\MascotaAlta$1.class
+com\argprograma\tpf\vistas\MascotaAlta$14.class
 com\argprograma\tpf\repositorios\TurnoMedicoRepository.class
 com\argprograma\tpf\vistas\MascotaAlta.class
 com\argprograma\tpf\DAO\PerroDAO.class
@@ -33,8 +36,11 @@ com\argprograma\tpf\persistencia\GatoJpaController.class
 com\argprograma\tpf\vistas\MascotaAlta$3.class
 com\argprograma\tpf\repositorios\MascotaRepository.class
 com\argprograma\tpf\vistas\Principal$2.class
+com\argprograma\tpf\vistas\MascotaAlta$12.class
 com\argprograma\tpf\entidades\estados\TurnoRechazado.class
 com\argprograma\tpf\DAO\TurnoMedicoDAO.class
+com\argprograma\tpf\vistas\MascotaAlta$13.class
 com\argprograma\tpf\persistencia\PerroJpaController.class
 com\argprograma\tpf\vistas\MascotaAlta$5.class
 com\argprograma\tpf\repositorios\PerroRepository.class
+com\argprograma\tpf\vistas\MascotaAlta$10.class
