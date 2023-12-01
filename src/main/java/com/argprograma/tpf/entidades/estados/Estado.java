@@ -4,5 +4,5 @@ import com.argprograma.tpf.entidades.TurnoMedico;
 
 
 public interface Estado {
-    public String procesarTurno(TurnoMedico tm);
+    public Estado procesarTurno(TurnoMedico tm);
 }

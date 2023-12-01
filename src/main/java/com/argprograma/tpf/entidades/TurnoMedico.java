@@ -1,7 +1,6 @@
 package com.argprograma.tpf.entidades;
 
 import com.argprograma.tpf.entidades.estados.TurnoPendiente;
-import com.argprograma.tpf.entidades.estados.Estado;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
@@ -15,39 +14,41 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TurnoMedico")
-public class TurnoMedico implements Serializable{
+@Table(name = "TurnoMedico")
+public class TurnoMedico implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private long id;
-    
+
     @ManyToOne
-    @JoinColumn(name="id_mascota")
+    @JoinColumn(name = "id_mascota")
     private Mascota mascota;
-    
-    @Column(name="fecha")
+
+    @Column(name = "fecha")
     private LocalDate fecha;
-    
-    @Column(name="motivo")
+
+    @Column(name = "motivo")
     private String motivo;
-    
-    @Column(name="estado")
+
+    @Column(name = "estado")
     private String estado;
 
     public TurnoMedico() {
     }
-         
-    
+
     public TurnoMedico(Mascota mascota, LocalDate fecha, String motivo) {
         this.mascota = mascota;
         this.fecha = fecha;
         this.motivo = motivo;
         this.estado = new TurnoPendiente().toString();
     }
-    public long getId(){
+
+    public long getId() {
         return id;
     }
+
     public Mascota getMascota() {
         return mascota;
     }
@@ -71,8 +72,7 @@ public class TurnoMedico implements Serializable{
     public void setMotivo(String motivo) {
         this.motivo = motivo;
     }
-    
-    
+
     public String getEstado() {
         return estado;
     }

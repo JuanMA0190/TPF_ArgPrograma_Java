@@ -4,6 +4,7 @@ import com.argprograma.tpf.entidades.Gato;
 import com.argprograma.tpf.entidades.Mascota;
 import com.argprograma.tpf.entidades.Perro;
 import com.argprograma.tpf.entidades.TurnoMedico;
+import com.argprograma.tpf.entidades.estados.*;
 import com.argprograma.tpf.repositorios.GatoRepository;
 import com.argprograma.tpf.repositorios.MascotaRepository;
 import com.argprograma.tpf.repositorios.PerroRepository;
@@ -25,7 +26,8 @@ public class GestionTurno extends javax.swing.JFrame {
     TurnoMedicoRepository tMRepo = null;
     GatoRepository gRepo = null;
     PerroRepository pRepo = null;
-    String[] titulos = {"ID", "Nombre", "Edad", "Raza", "Motivo", "Fecha_Turno"};
+
+    String[] titulos = {"ID", "IDTM", "Nombre", "Edad", "Raza", "Motivo_Turno", "Fecha_Turno", "Estado_Turno"};
 
     public GestionTurno() {
         maRepo = new MascotaRepository();
@@ -36,6 +38,15 @@ public class GestionTurno extends javax.swing.JFrame {
         this.setResizable(false);
         this.setSize(810, 630);
         cargarTabla(Perro.class, titulos, tblPerro);
+
+        cmbEstado.addItem(new TurnoPendiente().toString());
+        cmbEstado.addItem(new TurnoAceptado().toString());
+        cmbEstado.addItem(new TurnoRechazado().toString());
+
+        cmbEstadoG.addItem(new TurnoPendiente().toString());
+        cmbEstadoG.addItem(new TurnoAceptado().toString());
+        cmbEstadoG.addItem(new TurnoRechazado().toString());
+
     }
 
     @SuppressWarnings("unchecked")
@@ -55,6 +66,7 @@ public class GestionTurno extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jCalendar1 = new com.toedter.calendar.JCalendar();
+        jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -64,7 +76,8 @@ public class GestionTurno extends javax.swing.JFrame {
         tbRaza = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tbMotivo = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        cmbEstado = new javax.swing.JComboBox<>();
         PanelGato = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -74,13 +87,15 @@ public class GestionTurno extends javax.swing.JFrame {
         tbNombreG = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tbEdadG = new javax.swing.JTextField();
-        tbColor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         tbMotivoG = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        tbColor = new javax.swing.JTextField();
+        cmbEstadoG = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         jCalendar2 = new com.toedter.calendar.JCalendar();
+        jLabel13 = new javax.swing.JLabel();
         btnGuardar1 = new javax.swing.JButton();
         btnActualizar1 = new javax.swing.JButton();
         btnEliminar1 = new javax.swing.JButton();
@@ -146,13 +161,14 @@ public class GestionTurno extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnGuardar.setBackground(new java.awt.Color(51, 51, 51));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -190,21 +206,28 @@ public class GestionTurno extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
 
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Fecha Turno");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         jPanel5.setBackground(new java.awt.Color(51, 51, 51));
@@ -215,18 +238,16 @@ public class GestionTurno extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Edad");
 
+        tbEdad.setEditable(false);
         tbEdad.setForeground(new java.awt.Color(0, 0, 0));
-        tbEdad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbEdadKeyReleased(evt);
-            }
-        });
 
+        tbNombre.setEditable(false);
         tbNombre.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Motivo:");
+        jLabel3.setText("Motivo Turno");
 
+        tbRaza.setEditable(false);
         tbRaza.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,8 +255,10 @@ public class GestionTurno extends javax.swing.JFrame {
 
         tbMotivo.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Fecha:");
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Estado Turno");
+
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -249,23 +272,21 @@ public class GestionTurno extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(38, 38, 38))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tbMotivo, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tbNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                                    .addComponent(tbRaza))
+                                .addComponent(tbNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(tbEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tbEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tbRaza))
+                        .addGap(20, 20, 20))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel11)
+                            .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))))
         );
         jPanel5Layout.setVerticalGroup(
@@ -285,10 +306,13 @@ public class GestionTurno extends javax.swing.JFrame {
                 .addComponent(tbRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5))
+                .addComponent(tbMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
 
         javax.swing.GroupLayout PanelPerroLayout = new javax.swing.GroupLayout(PanelPerro);
@@ -297,38 +321,45 @@ public class GestionTurno extends javax.swing.JFrame {
             PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPerroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PanelPerroLayout.createSequentialGroup()
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnActualizar)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelPerroLayout.createSequentialGroup()
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnActualizar))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelPerroLayout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         PanelPerroLayout.setVerticalGroup(
             PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPerroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelPerroLayout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnActualizar))
                         .addGroup(PanelPerroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnCancelar))))
-                .addContainerGap())
+                            .addGroup(PanelPerroLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEliminar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPerroLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCancelar))))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         jTPMascota.addTab("Perro", PanelPerro);
@@ -380,59 +411,58 @@ public class GestionTurno extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Nombre");
 
+        tbNombreG.setEditable(false);
         tbNombreG.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Edad");
 
+        tbEdadG.setEditable(false);
         tbEdadG.setForeground(new java.awt.Color(0, 0, 0));
-        tbEdadG.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbEdadGKeyReleased(evt);
-            }
-        });
-
-        tbColor.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Color");
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Motivo");
+        jLabel9.setText("Estado Turno");
 
         tbMotivoG.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Fecha:");
+        jLabel10.setText("Motivo Turno");
+
+        tbColor.setEditable(false);
+        tbColor.setForeground(new java.awt.Color(0, 0, 0));
+
+        cmbEstadoG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(38, 38, 38))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbNombreG)
-                            .addComponent(tbColor))
-                        .addGap(18, 18, 18)
-                        .addComponent(tbEdadG, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(tbNombreG, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                                .addGap(8, 8, 8)))
+                        .addGap(17, 17, 17)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(tbMotivoG, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 28, Short.MAX_VALUE))))
+                            .addComponent(tbEdadG, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(15, 15, 15))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tbColor, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tbMotivoG, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbEstadoG, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,43 +472,56 @@ public class GestionTurno extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tbEdadG)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tbEdadG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tbNombreG))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbColor, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbMotivoG, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jLabel10))
+                .addComponent(tbMotivoG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cmbEstadoG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Fecha Turno");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         btnGuardar1.setBackground(new java.awt.Color(51, 51, 51));
         btnGuardar1.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar1.setText("Guardar");
+        btnGuardar1.setEnabled(false);
         btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardar1ActionPerformed(evt);
@@ -521,20 +564,29 @@ public class GestionTurno extends javax.swing.JFrame {
             .addGroup(PanelGatoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelGatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(PanelGatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelGatoLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addGap(21, 21, 21)
                         .addGroup(PanelGatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelGatoLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGatoLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnActualizar1)
-                            .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                                .addGap(92, 92, 92))
+                            .addGroup(PanelGatoLayout.createSequentialGroup()
+                                .addGroup(PanelGatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelGatoLayout.createSequentialGroup()
+                                        .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnActualizar1))
+                                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(PanelGatoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGatoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         PanelGatoLayout.setVerticalGroup(
             PanelGatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,17 +594,17 @@ public class GestionTurno extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PanelGatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelGatoLayout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActualizar1)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelGatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancelar1)
-                            .addComponent(btnEliminar1)))
+                            .addComponent(btnGuardar1)
+                            .addComponent(btnActualizar1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar1))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -603,10 +655,10 @@ public class GestionTurno extends javax.swing.JFrame {
                         Object[] objeto = null;
                         if (mascota instanceof Perro) {
                             Perro perro = (Perro) mascota;
-                            objeto = new Object[]{mascota.getId(), perro.getNombre(), perro.getEdad(), perro.getRaza(), turno.getMotivo(), turno.getFecha()};
+                            objeto = new Object[]{mascota.getId(), turno.getId(), perro.getNombre(), perro.getEdad(), perro.getRaza(), turno.getMotivo(), turno.getFecha(), turno.getEstado()};
                         } else if (mascota instanceof Gato) {
                             Gato gato = (Gato) mascota;
-                            objeto = new Object[]{mascota.getId(), gato.getNombre(), gato.getEdad(), gato.getColor(), turno.getMotivo(), turno.getFecha()};
+                            objeto = new Object[]{mascota.getId(), turno.getId(), gato.getNombre(), gato.getEdad(), gato.getColor(), turno.getMotivo(), turno.getFecha(), turno.getEstado()};
                         }
                         modeloTabla.addRow(objeto);
                     });
@@ -620,6 +672,10 @@ public class GestionTurno extends javax.swing.JFrame {
         tabla.getColumnModel().getColumn(0).setMinWidth(0);
         tabla.getColumnModel().getColumn(0).setMaxWidth(0);
         tabla.getColumnModel().getColumn(0).setWidth(0);
+
+        tabla.getColumnModel().getColumn(1).setMinWidth(0);
+        tabla.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabla.getColumnModel().getColumn(1).setWidth(0);
         //-----------------------------------------------------------------
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloTabla);
         tabla.setRowSorter(sorter);
@@ -639,6 +695,8 @@ public class GestionTurno extends javax.swing.JFrame {
         tbEdadG.setText("");
         tbRaza.setText("");
         tbColor.setText("");
+        cmbEstado.setSelectedIndex(0);
+        cmbEstadoG.setSelectedIndex(0);
         tbMotivo.setText("");
         tbMotivoG.setText("");
         jCalendar1.setDate(fechaActualDate);
@@ -666,14 +724,15 @@ public class GestionTurno extends javax.swing.JFrame {
         int filaSeleccionada = tblPerro.getSelectedRow();
 
         if (filaSeleccionada >= 0) {
-            String nombre = tblPerro.getValueAt(filaSeleccionada, 1).toString();
-            String edad = tblPerro.getValueAt(filaSeleccionada, 2).toString();
-            String raza = tblPerro.getValueAt(filaSeleccionada, 3).toString();
-            String motivo = tblPerro.getValueAt(filaSeleccionada, 4).toString();
+            String nombre = tblPerro.getValueAt(filaSeleccionada, 2).toString();
+            String edad = tblPerro.getValueAt(filaSeleccionada, 3).toString();
+            String raza = tblPerro.getValueAt(filaSeleccionada, 4).toString();
+            String motivo = tblPerro.getValueAt(filaSeleccionada, 5).toString();
 
-            LocalDate localDate = (LocalDate) tblPerro.getValueAt(filaSeleccionada, 5);
-
+            LocalDate localDate = (LocalDate) tblPerro.getValueAt(filaSeleccionada, 6);
             Date fecha = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            String estadoActual = tblPerro.getValueAt(filaSeleccionada, 7).toString();
 
             tbNombre.setText(nombre);
             tbEdad.setText(edad);
@@ -681,9 +740,21 @@ public class GestionTurno extends javax.swing.JFrame {
             tbMotivo.setText(motivo);
             jCalendar1.setDate(fecha);
 
-            btnGuardar.setEnabled(false);
-            btnActualizar.setEnabled(true);
-            btnEliminar.setEnabled(true);
+            switch (estadoActual) {
+                case "Turno Pendiente":
+                    cmbEstado.setSelectedItem(new TurnoPendiente().toString());
+                    break;
+                case "Turno Aceptado":
+                    cmbEstado.setSelectedItem(new TurnoAceptado().toString());
+                    break;
+                case "Turno Rechazado":
+                    cmbEstado.setSelectedItem(new TurnoRechazado().toString());
+                    break;
+                default:
+                    break;
+            }
+
+            desbloquearModificaciones();
         }
     }//GEN-LAST:event_tblPerroMouseClicked
 
@@ -691,14 +762,15 @@ public class GestionTurno extends javax.swing.JFrame {
         int filaSeleccionada = tblGato.getSelectedRow();
 
         if (filaSeleccionada >= 0) {
-            String nombre = tblGato.getValueAt(filaSeleccionada, 1).toString();
-            String edad = tblGato.getValueAt(filaSeleccionada, 2).toString();
-            String color = tblGato.getValueAt(filaSeleccionada, 3).toString();
-            String motivo = tblGato.getValueAt(filaSeleccionada, 4).toString();
+            String nombre = tblGato.getValueAt(filaSeleccionada, 2).toString();
+            String edad = tblGato.getValueAt(filaSeleccionada, 3).toString();
+            String color = tblGato.getValueAt(filaSeleccionada, 4).toString();
+            String motivo = tblGato.getValueAt(filaSeleccionada, 5).toString();
 
-            LocalDate localDate = (LocalDate) tblGato.getValueAt(filaSeleccionada, 5);
-
+            LocalDate localDate = (LocalDate) tblGato.getValueAt(filaSeleccionada, 6);
             Date fecha = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            String estadoActual = tblGato.getValueAt(filaSeleccionada, 7).toString();
 
             tbNombreG.setText(nombre);
             tbEdadG.setText(edad);
@@ -706,9 +778,21 @@ public class GestionTurno extends javax.swing.JFrame {
             tbMotivoG.setText(motivo);
             jCalendar2.setDate(fecha);
 
-            btnGuardar1.setEnabled(false);
-            btnActualizar1.setEnabled(true);
-            btnEliminar1.setEnabled(true);
+            switch (estadoActual) {
+                case "Turno Pendiente":
+                    cmbEstadoG.setSelectedItem(new TurnoPendiente().toString());
+                    break;
+                case "Turno Aceptado":
+                    cmbEstadoG.setSelectedItem(new TurnoAceptado().toString());
+                    break;
+                case "Turno Rechazado":
+                    cmbEstadoG.setSelectedItem(new TurnoRechazado().toString());
+                    break;
+                default:
+                    break;
+            }
+
+            desbloquearModificaciones();
         }
     }//GEN-LAST:event_tblGatoMouseClicked
 
@@ -721,47 +805,58 @@ public class GestionTurno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (!tbNombre.getText().equals("") && !tbEdad.getText().equals("") && !tbRaza.getText().equals("") && !tbMotivo.getText().equals("")) {
-            Mascota perro = new Perro(tbNombre.getText(), Integer.parseInt(tbEdad.getText()), tbRaza.getText());
-            maRepo.guardar(perro);
+        int filaSeleccionada = tblPerro.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            if (!tbMotivo.getText().equals("") && cmbEstado.getSelectedIndex() > 0) {
+                long id = (long) tblPerro.getValueAt(filaSeleccionada, 0);
+                Mascota mTurnMascota = maRepo.obtenerPorId(id);
 
-            Date fecha = jCalendar1.getDate();
-            Instant instant = fecha.toInstant();
-            LocalDate fechaLocalDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+                Date fecha = jCalendar1.getDate();
+                Instant instant = fecha.toInstant();
+                LocalDate fechaLocalDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 
-            TurnoMedico turnoMedicoPerro = new TurnoMedico(perro, fechaLocalDate, tbMotivo.getText());
-            tMRepo.guardar(turnoMedicoPerro);
+                TurnoMedico turnoMedico = new TurnoMedico(mTurnMascota, fechaLocalDate, tbMotivo.getText());
+                turnoMedico.setEstado(cmbEstado.getItemAt(cmbEstado.getSelectedIndex()));
+                tMRepo.guardar(turnoMedico);
 
-            perro.addTurnoMedico(turnoMedicoPerro);
-            maRepo.actualizar(perro);
+                mTurnMascota.addTurnoMedico(turnoMedico);
+                maRepo.actualizar(mTurnMascota);
 
-            cargarTabla(Perro.class, titulos, tblPerro);
-            limpiar();
+                cargarTabla(Perro.class, titulos, tblPerro);
+                bloquearModificaciones();
+            } else {
+                JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione una mascota", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-        if (!tbNombreG.getText().equals("") && !tbEdadG.getText().equals("") && !tbColor.getText().equals("") && !tbMotivoG.getText().equals("")) {
-            Mascota gato = new Gato(tbNombreG.getText(), Integer.parseInt(tbEdadG.getText()), tbColor.getText());
-            maRepo.guardar(gato);
+        int filaSeleccionada = tblGato.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            if (!tbMotivoG.getText().equals("") && cmbEstadoG.getSelectedIndex() > 0) {
+                long id = (long) tblGato.getValueAt(filaSeleccionada, 0);
+                Mascota mTurnMascota = maRepo.obtenerPorId(id);
 
-            Date fecha = jCalendar1.getDate();
-            Instant instant = fecha.toInstant();
-            LocalDate fechaLocalDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+                Date fecha = jCalendar2.getDate();
+                Instant instant = fecha.toInstant();
+                LocalDate fechaLocalDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 
-            TurnoMedico turnoMedicoPerro = new TurnoMedico(gato, fechaLocalDate, tbMotivoG.getText());
-            tMRepo.guardar(turnoMedicoPerro);
+                TurnoMedico turnoMedico = new TurnoMedico(mTurnMascota, fechaLocalDate, tbMotivoG.getText());
+                turnoMedico.setEstado(cmbEstadoG.getItemAt(cmbEstadoG.getSelectedIndex()));
+                tMRepo.guardar(turnoMedico);
 
-            gato.addTurnoMedico(turnoMedicoPerro);
-            maRepo.actualizar(gato);
+                mTurnMascota.addTurnoMedico(turnoMedico);
+                maRepo.actualizar(mTurnMascota);
 
-            cargarTabla(Gato.class, titulos, tblGato);
-            limpiar();
+                cargarTabla(Gato.class, titulos, tblGato);
+                bloquearModificaciones();
+            } else {
+                JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione una mascota", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
@@ -769,10 +864,13 @@ public class GestionTurno extends javax.swing.JFrame {
         int filaSeleccionada = tblPerro.getSelectedRow();
         if (filaSeleccionada >= 0) {
             long id = (long) tblPerro.getValueAt(filaSeleccionada, 0);
+            long idt = (long) tblPerro.getValueAt(filaSeleccionada, 1);
 
+            TurnoMedico tmEliminar = tMRepo.obtenerPorId(idt);
             Mascota mEliminar = maRepo.obtenerPorId(id);
 
-            maRepo.eliminar(mEliminar.getId());
+            mEliminar.removeTurnoMedico(tmEliminar);
+            tMRepo.eliminar(tmEliminar.getId());
 
             cargarTabla(Perro.class, titulos, tblPerro);
             bloquearModificaciones();
@@ -786,12 +884,15 @@ public class GestionTurno extends javax.swing.JFrame {
         int filaSeleccionada = tblGato.getSelectedRow();
         if (filaSeleccionada >= 0) {
             long id = (long) tblGato.getValueAt(filaSeleccionada, 0);
+            long idt = (long) tblGato.getValueAt(filaSeleccionada, 1);
 
+            TurnoMedico tmEliminar = tMRepo.obtenerPorId(idt);
             Mascota mEliminar = maRepo.obtenerPorId(id);
 
-            maRepo.eliminar(mEliminar.getId());
+            mEliminar.removeTurnoMedico(tmEliminar);
+            tMRepo.eliminar(tmEliminar.getId());
 
-            cargarTabla(Gato.class, titulos, tblGato);
+            cargarTabla(Perro.class, titulos, tblGato);
             bloquearModificaciones();
 
         } else {
@@ -802,19 +903,17 @@ public class GestionTurno extends javax.swing.JFrame {
     private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
         int filaSeleccionada = tblGato.getSelectedRow();
         if (filaSeleccionada >= 0) {
-            if (!tbNombreG.getText().equals("") && !tbEdadG.getText().equals("") && !tbColor.getText().equals("") && !tbMotivoG.getText().equals("")) {
-                long id = (long) tblGato.getValueAt(filaSeleccionada, 0);
+            if (!tbMotivoG.getText().equals("") && cmbEstadoG.getSelectedIndex() > 0) {
+                long id = (long) tblGato.getValueAt(filaSeleccionada, 1);
 
-                Gato gEditar = gRepo.obtenerPorId(id);
                 TurnoMedico tEditar = tMRepo.obtenerPorId(id);
 
-                gEditar.setNombre(tbNombreG.getText());
-                gEditar.setEdad(Integer.parseInt(tbEdadG.getText()));
-                gEditar.setColor(tbColor.getText());
+                Date fecha = jCalendar2.getDate();
+                Instant instant = fecha.toInstant();
+                LocalDate fechaLocalDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 
-                gRepo.actualizar(gEditar);
-
-                //Solo se deja editar el motivo, ya que la fecha se confirma o no
+                tEditar.setFecha(fechaLocalDate);
+                tEditar.setEstado(cmbEstadoG.getItemAt(cmbEstadoG.getSelectedIndex()));
                 tEditar.setMotivo(tbMotivoG.getText());
                 tMRepo.actualizar(tEditar);
 
@@ -831,19 +930,17 @@ public class GestionTurno extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         int filaSeleccionada = tblPerro.getSelectedRow();
         if (filaSeleccionada >= 0) {
-            if (!tbNombre.getText().equals("") && !tbEdad.getText().equals("") && !tbRaza.getText().equals("") && !tbMotivo.getText().equals("")) {
-                long id = (long) tblPerro.getValueAt(filaSeleccionada, 0);
+            if (!tbMotivo.getText().equals("") && cmbEstado.getSelectedIndex() > 0) {
+                long id = (long) tblPerro.getValueAt(filaSeleccionada, 1);
 
-                Perro pEditar = pRepo.obtenerPorId(id);
                 TurnoMedico tEditar = tMRepo.obtenerPorId(id);
 
-                pEditar.setNombre(tbNombre.getText());
-                pEditar.setEdad(Integer.parseInt(tbEdad.getText()));
-                pEditar.setRaza(tbRaza.getText());
+                Date fecha = jCalendar1.getDate();
+                Instant instant = fecha.toInstant();
+                LocalDate fechaLocalDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 
-                pRepo.actualizar(pEditar);
-
-                //Solo se deja editar el motivo, ya que la fecha se confirma o no
+                tEditar.setFecha(fechaLocalDate);
+                tEditar.setEstado(cmbEstado.getItemAt(cmbEstado.getSelectedIndex()));
                 tEditar.setMotivo(tbMotivo.getText());
                 tMRepo.actualizar(tEditar);
 
@@ -852,51 +949,30 @@ public class GestionTurno extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione una mascota", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void tbEdadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbEdadKeyReleased
-        boolean ban;
-        if (Character.isDigit(evt.getKeyChar())) {
-            ban = false;
-        } else if (Character.isISOControl(evt.getKeyChar())) {
-            ban = false;
-        } else if (Character.isSpaceChar(evt.getKeyChar())) {
-            ban = false;
-        } else {
-            ban = true;
-            JOptionPane.showMessageDialog(null, "Campo solo numerico", "Error", JOptionPane.ERROR_MESSAGE);
-            tbEdad.setText("");
-        }
-    }//GEN-LAST:event_tbEdadKeyReleased
-
-    private void tbEdadGKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbEdadGKeyReleased
-        boolean ban;
-        if (Character.isDigit(evt.getKeyChar())) {
-            ban = false;
-        } else if (Character.isISOControl(evt.getKeyChar())) {
-            ban = false;
-        } else if (Character.isSpaceChar(evt.getKeyChar())) {
-            ban = false;
-        } else {
-            ban = true;
-            JOptionPane.showMessageDialog(null, "Campo solo numerico", "Error", JOptionPane.ERROR_MESSAGE);
-            tbEdadG.setText("");
-        }
-    }//GEN-LAST:event_tbEdadGKeyReleased
-
     private void bloquearModificaciones() {
         limpiar();
-        btnGuardar.setEnabled(true);
+        btnGuardar.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnActualizar.setEnabled(false);
 
-        btnGuardar1.setEnabled(true);
+        btnGuardar1.setEnabled(false);
         btnEliminar1.setEnabled(false);
         btnActualizar1.setEnabled(false);
+    }
+
+    private void desbloquearModificaciones() {
+        btnGuardar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnActualizar.setEnabled(true);
+
+        btnGuardar1.setEnabled(true);
+        btnEliminar1.setEnabled(true);
+        btnActualizar1.setEnabled(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -911,14 +987,18 @@ public class GestionTurno extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnGuardar1;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JComboBox<String> cmbEstadoG;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

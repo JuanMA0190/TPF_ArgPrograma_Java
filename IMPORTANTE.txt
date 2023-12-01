@@ -1,0 +1,13 @@
+Sistema de Veterinaria --ArgPrograma 4.0 Java
+
+Este sistema se encarga de llevar registro de un veterinario, registra mascotas(Gato y Perro) y los turnos respectivos.
+
+-----------------------------------------------------------------------------------------------------------------------
+Diseñe el estado del turno con patron de diseño state.
+
+Cada clase tiene su DAO y repository.
+
+Aplique expresion lambda para mostrar y organizar la tabla que se puede ver tanto en mascota como en veterinario.
+(para ver el codigo de las vistas se ingresa en la parte superior "Source" a lado de "Desing".)
+
+Todas las implementaciones estan funcionales, solamente la parte de eliminar de turnos no lo supe arreglar.

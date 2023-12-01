@@ -4,10 +4,13 @@ import com.argprograma.tpf.entidades.TurnoMedico;
 
 public class TurnoPendiente implements Estado {
 
-    @Override
-    public String procesarTurno(TurnoMedico tm) {
-       return "Turno Pendiente";
+   @Override
+    public Estado procesarTurno(TurnoMedico tm) {
+       return this;
     }
 
-
+    @Override
+    public String toString() {
+       return "Turno Pendiente";
+    }
 }
